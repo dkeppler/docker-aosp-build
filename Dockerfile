@@ -38,5 +38,6 @@ RUN useradd --create-home buildbot
 RUN echo "export USE_CCACHE=1" >> /etc/profile.d/android
 
 USER buildbot
+ENV HOME /home/buildbot
 WORKDIR /home/buildbot/android
 VOLUME /home/buildbot/android
