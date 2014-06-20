@@ -21,18 +21,27 @@ RUN apt-get install -y git gnupg flex bison gperf build-essential \
             python-markdown libxml2-utils xsltproc zlib1g-dev:i386 \
             libswitch-perl qemu-utils virtualbox
 
+
 # Install repo
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
 RUN chmod a+x /usr/local/bin/repo
 
 # Install JDK6
-ADD jdk-6u45-linux-x64.bin /opt/jdk-6u45-linux-x64.bin
-RUN chmod a+x /opt/jdk-6u45-linux-x64.bin
-WORKDIR /opt
-RUN /opt/jdk-6u45-linux-x64.bin
-RUN /bin/sh -c 'cd /usr/local/bin ; for i in /opt/jdk1.6.0_45/bin/* ; do ln -s $i ; done'
-RUN echo "export PATH=${PATH}:/opt/jdk1.6.0_45/bin" >> /etc/profile.d/java
-RUN echo "export JAVA_HOME=/opt/jdk1.6.0_45" >> /etc/profile.d/java
+#ADD jdk-6u45-linux-x64.bin /opt/jdk-6u45-linux-x64.bin
+#RUN chmod a+x /opt/jdk-6u45-linux-x64.bin
+#WORKDIR /opt
+#RUN /opt/jdk-6u45-linux-x64.bin
+#RUN /bin/sh -c 'cd /usr/local/bin ; for i in /opt/jdk1.6.0_45/bin/* ; do ln -s $i ; done'
+#RUN echo "export PATH=${PATH}:/opt/jdk1.6.0_45/bin" >> /etc/profile.d/java
+#RUN echo "export JAVA_HOME=/opt/jdk1.6.0_45" >> /etc/profile.d/java
+
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository ppa:webupd8team/java
+RUN apt-get -qq update
+RUN echo oracle-java6-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+RUN apt-get install -y oracle-java6-installer
+RUN update-java-alternatives -s java-6-oracle
+RUN apt-get install oracle-java6-set-default
 
 RUN useradd --create-home buildbot
 RUN echo "export USE_CCACHE=1" >> /etc/profile.d/android
