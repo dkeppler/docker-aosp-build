@@ -21,7 +21,6 @@ RUN apt-get install -y git gnupg flex bison gperf build-essential \
             python-markdown libxml2-utils xsltproc zlib1g-dev:i386 \
             libswitch-perl qemu-utils virtualbox
 
-
 # Install repo
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
 RUN chmod a+x /usr/local/bin/repo
@@ -43,8 +42,13 @@ RUN apt-get install -y oracle-java6-installer
 RUN update-java-alternatives -s java-6-oracle
 RUN apt-get install oracle-java6-set-default
 
+# Extras that android-x86.org and android-ia need
+RUN apt-get install -y gettext python-libxml2 yasm bc
+RUN apt-get install -y squashfs-tools genisoimage dosfstools mtools
+
 RUN useradd --create-home buildbot
 RUN echo "export USE_CCACHE=1" >> /etc/profile.d/android
+ENV USE_CCACHE 1
 
 USER buildbot
 ENV HOME /home/buildbot
