@@ -1,15 +1,15 @@
-FROM ubuntu:12.04
+FROM ubuntu:14.04
 MAINTAINER David Keppler "dave@kepps.net"
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src http://archive.ubuntu.com/ubuntu precise multiverse" >> /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ precise-security multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src http://archive.ubuntu.com/ubuntu/ precise-security multiverse" >> /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu trusty multiverse" >> /etc/apt/sources.list
+RUN echo "deb-src http://archive.ubuntu.com/ubuntu trusty multiverse" >> /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu/ trusty-security multiverse" >> /etc/apt/sources.list
+RUN echo "deb-src http://archive.ubuntu.com/ubuntu/ trusty-security multiverse" >> /etc/apt/sources.list
 
 ENV DEBIAN_FRONTEND noninteractive
 
 # make multiarch work (only a 14.04 thing?)
-#RUN dpkg --add-architecture i386
+RUN dpkg --add-architecture i386
 
 RUN apt-get -qq update
 RUN apt-get -qqy upgrade
