@@ -27,10 +27,6 @@ RUN apt-get install -y git gnupg flex bison gperf build-essential \
             python-markdown libxml2-utils xsltproc zlib1g-dev:i386 \
             libswitch-perl qemu-utils virtualbox
 
-# Install repo
-RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
-RUN chmod a+x /usr/local/bin/repo
-
 RUN apt-get install -y software-properties-common python-software-properties
 
 # Install Oracle Java 6
